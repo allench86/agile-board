@@ -15,7 +15,7 @@ body {
   position: relative;
 }
 .page {
-  position: absolute;
+/*  position: absolute;*/
   top: 0px;
   width: 100%;
 }
@@ -157,4 +157,12 @@ body {
   clear: both;
   margin-bottom: 5px;
   pointer-events: auto;
+}
+
+.column-container {
+  clear: both;
+}
+
+.column {
+  float: left;
 }
