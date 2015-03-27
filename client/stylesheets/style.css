@@ -163,6 +163,6 @@ body {
   clear: both;
 }
 
-.column {
+.column-container .column {
   float: left;
 }
