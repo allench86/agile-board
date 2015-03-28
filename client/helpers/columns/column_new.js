@@ -7,7 +7,13 @@ Template.createColumn.events({
       name: $(e.target).find('[name=name]').val()
     };
 
-    column._id = Columns.insert(column);
-    Router.go('boardPage', {_id: template.data._id});
+    Meteor.call('columnInsert', column, function(error, result) {
+      // display the error to the user and abort
+      if (error)
+        return alert(error.reason);
+      Router.go('boardPage', {
+        _id: template.data._id
+      });
+    });
   }
 });
