@@ -2,6 +2,10 @@
   <div class="column">
     <div class="column-content">
       <h3><a href="#">{{name}}</a></h3>
+      <p>
+        submitted by {{author}}
+        {{#if ownPost}}<a href="{{pathFor 'columnEdit'}}">Edit</a>{{/if}}
+      </p>
     </div>
   </div>
 </template>
