@@ -1,7 +1,11 @@
-Meteor.publish('boards', function(){
+Meteor.publish('boards', function() {
   return Boards.find();
 });
 
-Meteor.publish('columns', function(){
-  return Columns.find();
+
+Meteor.publish('columns', function(boardId) {
+  check(boardId, String);
+  return Columns.find({
+    boardId: boardId
+  });
 });
