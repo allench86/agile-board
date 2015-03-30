@@ -3,20 +3,25 @@ Template.columnEdit.events({
     e.preventDefault();
 
     var currentColumnId = this._id;
+    var board_id = this.board_id;
 
     var columnProperties = {
       name: $(e.target).find('[name=name]').val(),
+    }
+
+    var errors = validateColumn(columnProperties);
+    if (errors.name) {
+      return Session.set('columnEditErrors', errors);
     }
 
     Columns.update(currentColumnId, {
       $set: columnProperties
     }, function(error) {
       if (error) {
-        // display the error to the user
-        alert(error.reason);
+        return throwError(error.reason);
       } else {
-        Router.go('columnPage', {
-          _id: currentColumnId
+        Router.go('boardPage', {
+          _id: board_id
         });
       }
     });
@@ -27,8 +32,24 @@ Template.columnEdit.events({
 
     if (confirm("Delete this column?")) {
       var currentColumnId = this._id;
+      var board_id = this.board_id;
       Columns.remove(currentColumnId);
-      Router.go('columnsList');
+      Router.go('boardPage', {
+        _id: board_id
+      });
     }
+  }
+});
+
+Template.columnEdit.created = function() {
+  Session.set('columnEditErrors', {});
+};
+
+Template.columnEdit.helpers({
+  errorMessage: function(field) {
+    return Session.get('columnEditErrors')[field];
+  },
+  errorClass: function(field) {
+    return !!Session.get('columnEditErrors')[field] ? 'has-error' : '';
   }
 });

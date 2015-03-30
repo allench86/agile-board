@@ -8,12 +8,16 @@ Template.boardEdit.events({
       name: $(e.target).find('[name=name]').val(),
     }
 
+    var errors = validateBoard(boardProperties);
+    if (errors.name) {
+      return Session.set('boardEditErrors', errors);
+    }
+
     Boards.update(currentBoardId, {
       $set: boardProperties
     }, function(error) {
       if (error) {
-        // display the error to the user
-        alert(error.reason);
+        return throwError(error.reason);
       } else {
         Router.go('boardPage', {
           _id: currentBoardId
@@ -30,5 +34,18 @@ Template.boardEdit.events({
       Boards.remove(currentBoardId);
       Router.go('boardsList');
     }
+  }
+});
+
+Template.boardEdit.created = function() {
+  Session.set('boardEditErrors', {});
+};
+
+Template.boardEdit.helpers({
+  errorMessage: function(field) {
+    return Session.get('boardEditErrors')[field];
+  },
+  errorClass: function(field) {
+    return !!Session.get('boardEditErrors')[field] ? 'has-error' : '';
   }
 });
