@@ -3,7 +3,7 @@ Template.columnCreate.events({
     e.preventDefault();
 
     var column = {
-      board_id: template.data._id,
+      boardId: template.data._id,
       name: $(e.target).find('[name=name]').val()
     };
 

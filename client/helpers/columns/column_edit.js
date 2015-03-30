@@ -3,7 +3,7 @@ Template.columnEdit.events({
     e.preventDefault();
 
     var currentColumnId = this._id;
-    var board_id = this.board_id;
+    var boardId = this.boardId;
 
     var columnProperties = {
       name: $(e.target).find('[name=name]').val(),
@@ -21,7 +21,7 @@ Template.columnEdit.events({
         return throwError(error.reason);
       } else {
         Router.go('boardPage', {
-          _id: board_id
+          _id: boardId
         });
       }
     });
@@ -32,10 +32,10 @@ Template.columnEdit.events({
 
     if (confirm("Delete this column?")) {
       var currentColumnId = this._id;
-      var board_id = this.board_id;
+      var boardId = this.boardId;
       Columns.remove(currentColumnId);
       Router.go('boardPage', {
-        _id: board_id
+        _id: boardId
       });
     }
   }

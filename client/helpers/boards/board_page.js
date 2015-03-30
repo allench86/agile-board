@@ -1,5 +1,7 @@
 Template.boardPage.helpers({
   columns: function() {
-    return Columns.find({board_id: this._id});
+    return Columns.find({
+      boardId: this._id
+    });
   }
 })
